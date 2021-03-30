@@ -188,13 +188,12 @@ def webhook():
     if request.json['ref'] != config.TRIGGER_REF:
         return 'Incorrect trigger, skipping update', 200
 
-    orgin = repo.remotes.origin
+    origin = repo.remotes.origin
     origin.pull()
     return 'Updated PythonAnywhere successfully', 200
 
 @app.route('/ping')
 def ping():
-    return repo.git_dir + " " + repo.working_dir
     return "test again! " + repo.head.commit.name_rev, 200
 
 @app.route('/cookie_check')
