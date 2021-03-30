@@ -194,6 +194,7 @@ def webhook():
 
 @app.route('/ping')
 def ping():
+    return repo.git_dir + " " + repo.working_dir
     return "test again! " + repo.head.commit.name_rev, 200
 
 @app.route('/cookie_check')
