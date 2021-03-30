@@ -183,10 +183,12 @@ def is_valid_signature(x_hub_signature, data, private_key):
 @app.route('/update_server', methods=['POST'])
 def webhook():
     x_hub_signature = request.headers.get('X-Hub-Signature')
-    if not is_valid_signature(x_hub_signature, request.data, os.environ['GITHUB_SECRET']) or request.json['ref'] != config.TRIGGER_REF:
-        return abort(400)
+    if not is_valid_signature(x_hub_signature, request.data, os.environ['GITHUB_SECRET']):
+        return abort(403)
+    if request.json['ref'] != config.TRIGGER_REF:
+        return 'Incorrect trigger, skipping update', 200
 
-    origin = repo.remotes.origin
+    orgin = repo.remotes.origin
     origin.pull()
     return 'Updated PythonAnywhere successfully', 200
 
