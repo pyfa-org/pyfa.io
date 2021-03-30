@@ -28,4 +28,4 @@ PERMANENT_SESSION_LIFETIME = datetime.timedelta(days=30)
 # ------------------------------------------------------
 # CI/CD auto update 
 # ------------------------------------------------------
-TRIGGER_REF = 'refs/heads/develop'
+TRIGGER_REF = 'refs/heads/main'
