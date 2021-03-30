@@ -49,3 +49,7 @@ Refreshing access token:
 2. pyfa HTTP POST's refresh token to pyfa's web server, which makes the call to EVE SSO to get a new access token
 
 3. Web server responds to pyfa's request with a new access token and expiration time.
+
+## Deploying
+
+todo
