@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+  </head>
+  <body>
+    <noscript
+      >Javascript is not enabled. You must enable javascript for us to check if
+      cookies work</noscript
+    >
+
+    <div id="cookie-container"></div>
+
+    <script type="application/javascript">
+      function checkCookie() {
+        // Quick test if browser has cookieEnabled host property
+        if (navigator.cookieEnabled) return true;
+        // Create cookie
+        document.cookie = "cookietest=1";
+        var ret = document.cookie.indexOf("cookietest=") != -1;
+        // Delete cookie
+        document.cookie = "cookietest=1; expires=Thu, 01-Jan-1970 00:00:01 GMT";
+        return ret;
+      }
+
+      if (checkCookie()) {
+        document.getElementById("cookie-container").innerHTML =
+          "Cookies work! :)";
+      } else {
+        document.getElementById("cookie-container").innerHTML =
+          "Cookies don't work! :(";
+      }
+    </script>
+  </body>
+</html>
