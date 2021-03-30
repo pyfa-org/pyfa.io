@@ -41,6 +41,8 @@ console.setLevel(logging.DEBUG)
 console.setFormatter(formatter)
 logger.addHandler(console)
 
+repo = git.Repo('./')
+
 # init app and load conf
 app = Flask(__name__)
 app.config.from_object(config)
@@ -181,17 +183,15 @@ def is_valid_signature(x_hub_signature, data, private_key):
 @app.route('/update_server', methods=['POST'])
 def webhook():
     x_hub_signature = request.headers.get('X-Hub-Signature')
-    if request.method != 'POST' or not is_valid_signature(x_hub_signature, request.data, os.environ['GITHUB_SECRET']) or request.json['ref'] != config.TRIGGER_REF:
+    if not is_valid_signature(x_hub_signature, request.data, os.environ['GITHUB_SECRET']) or request.json['ref'] != config.TRIGGER_REF:
         return abort(400)
 
-    repo = git.Repo('./')
     origin = repo.remotes.origin
     origin.pull()
     return 'Updated PythonAnywhere successfully', 200
 
 @app.route('/ping')
 def ping():
-    repo = git.Repo('./')
     return "test" + repo.head.commit.name_rev, 200
 
 @app.route('/cookie_check')
