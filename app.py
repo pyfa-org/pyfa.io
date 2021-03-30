@@ -182,7 +182,7 @@ def is_valid_signature(x_hub_signature, data, private_key):
 def webhook():
     x_hub_signature = request.headers.get('X-Hub-Signature')
     if request.method != 'POST' or not is_valid_signature(x_hub_signature, request.data, os.environ['GITHUB_SECRET']) or request.json['ref'] != config.TRIGGER_REF:
-        return 404
+        return abort(400)
 
     repo = git.Repo('./')
     origin = repo.remotes.origin
