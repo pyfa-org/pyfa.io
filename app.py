@@ -180,16 +180,14 @@ def is_valid_signature(x_hub_signature, data, private_key):
 
 @app.route('/update_server', methods=['POST'])
 def webhook():
-    if request.method == 'POST':
-        x_hub_signature = request.headers.get('X-Hub-Signature')
-        if not is_valid_signature(x_hub_signature, request.data, "testme!"):
-            return 'Invalid Signature', 400
-        repo = git.Repo('./')
-        origin = repo.remotes.origin
-        origin.pull()
-        return 'Updated PythonAnywhere successfully', 200
-    else:
-        return 'Wrong event type', 400
+    x_hub_signature = request.headers.get('X-Hub-Signature')
+    if request.method != 'POST' or not is_valid_signature(x_hub_signature, request.data, os.environ['GITHUB_SECRET']) or request.json['ref'] != config.TRIGGER_REF:
+        return 404
+
+    repo = git.Repo('./')
+    origin = repo.remotes.origin
+    origin.pull()
+    return 'Updated PythonAnywhere successfully', 200
 
 @app.route('/ping')
 def ping():

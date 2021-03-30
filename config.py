@@ -3,7 +3,7 @@ import datetime
 import os
 
 # -----------------------------------------------------
-# Application w
+# Application
 # ------------------------------------------------------
 DEBUG = True
 SECRET_KEY = os.environ['SECRET_KEY'].encode()
@@ -20,14 +20,12 @@ ESI_CLIENT_ID = '0b3d8699bab149a18838d5183507b5ab'  # your client ID
 ESI_CALLBACK = 'https://www.pyfa.io/sso/callback' # the callback URI you gave CCP
 ESI_USER_AGENT = 'pyfa-esipy'
 
-
 # ------------------------------------------------------
 # Session settings for flask login
 # ------------------------------------------------------
 PERMANENT_SESSION_LIFETIME = datetime.timedelta(days=30)
 
 # ------------------------------------------------------
-# DO NOT EDIT
-# Fix warnings from flask-sqlalchemy / others
+# CI/CD auto update 
 # ------------------------------------------------------
-SQLALCHEMY_TRACK_MODIFICATIONS = True
+TRIGGER_REF = 'refs/heads/develop'
