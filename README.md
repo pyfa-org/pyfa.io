@@ -52,4 +52,4 @@ Refreshing access token:
 
 ## Deploying
 
-todo
+pyfa.io automatically updates whenever a merge into main branch happens. Deploying is done via a simple web hook, that POSTs to pyfa.io and instructs it to pull the latest commit and restart the server. Eventually, we would like GitHub actions to be the one to do it (via ssh) so that it's not reliant on the server being online and accepting requests, but it is what it is for now.
